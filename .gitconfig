@@ -1,0 +1,29 @@
+[user]
+	name = NAME HERE
+	email = EMAIL HERE
+[credential]
+	helper = cache --timeout=86400
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 0x0+0+0
+	main-window-view = HistoryView
+	history-view-vpane-position = 73
+	file-view-vpane-position = 77
+[core]
+	editor = vim
+[merge]
+	tool = extMerge
+[diff]
+	tool = meld
+	external = extDiff
+[color]
+	ui = true
+[mergetool "extMerge"]
+	cmd = extMerge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+[mergetool]
+	trustExitCode = false
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
