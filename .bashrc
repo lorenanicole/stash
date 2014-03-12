@@ -93,7 +93,15 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias pycharm='/home/brian/debesys/run ~/pycharm-community-3.1.1/bin/pycharm.sh'
+alias pycharm='/home/brian/debesys/run ~/pycharm-3.1.1/bin/pycharm.sh'
+
+alias glog='git log --graph --decorate --color --full-history'
+
+alias orderserver='ssh root@10.202.0.30'
+
+alias dev='cd /home/brian/debesys'
+
+alias show='nautilus ./'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

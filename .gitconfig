@@ -1,6 +1,6 @@
 [user]
-	name = NAME HERE
-	email = EMAIL HERE
+	name = Brian Cordonnier
+	email = brian.cordonnier@tradingtechnologies.com
 [credential]
 	helper = cache --timeout=86400
 [giggle]
@@ -11,17 +11,8 @@
 	file-view-vpane-position = 77
 [core]
 	editor = vim
-[merge]
-	tool = extMerge
-[diff]
-	tool = meld
-	external = extDiff
 [color]
 	ui = true
-[mergetool "extMerge"]
-	cmd = extMerge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
-[mergetool]
-	trustExitCode = false
 [alias]
 	co = checkout
 	br = branch
@@ -29,3 +20,11 @@
 	st = status
 [push]
 	default = simple
+[diff]
+	tool = meld
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[merge]
+	tool = meld
