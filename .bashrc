@@ -130,6 +130,8 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib/x86_64-linux-gnu
 # Java location for debesys builds
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+export EDITOR=vim
+
 if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
 fi
