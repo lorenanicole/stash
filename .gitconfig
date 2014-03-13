@@ -18,6 +18,8 @@
 	br = branch
 	ci = commit
 	st = status
+	ds = difftool --dir-diff --staged
+	df = difftool --dir-diff
 [push]
 	default = simple
 [diff]
