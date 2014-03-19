@@ -103,6 +103,8 @@ alias dev='cd /home/brian/debesys'
 
 alias show='nautilus ./'
 
+alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -125,7 +127,8 @@ fi
 
 
 # Solve missing crti.o issue
-export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib/x86_64-linux-gnu
+LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LIBRARY_PATH 
+export LIBRARY_PATH
 
 # Java location for debesys builds
 export JAVA_HOME=/usr/lib/jvm/default-java
@@ -135,3 +138,5 @@ export EDITOR=vim
 if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
 fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
