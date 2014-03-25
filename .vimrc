@@ -11,4 +11,4 @@ set mouse=a
 set visualbell
 set number
 colo delek
-
+set tabstop=4
