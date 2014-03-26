@@ -105,6 +105,8 @@ alias show='nautilus ./'
 
 alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
 
+alias cl='python /usr/local/bin/clear.py'
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
