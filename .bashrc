@@ -141,4 +141,69 @@ if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
 fi
 
+function mkchefec2()
+{
+    if [ -z "$1" ]; then
+        echo 'Usage: you must pass the node name, mkchefec2 node_name [size]'
+        return
+    fi
+
+    pushd `git rev-parse --show-toplevel`
+
+    if [ -z "$2" ]; then
+        ebs_size="--ebs-size 20"
+    else
+        ebs_size="--ebs-size $2"
+    fi
+
+    target_os="ami-eb6b0182" # centos 6 with updates, us east
+    user="root"
+
+    echo ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment _default --recipe base $ebs_size -a $1
+    ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment _default --recipe base $ebs_size -a $1
+
+    local ip=`knife node show $1 | grep IP | tr -s ' ' | cut -d" " -f 2`
+    if [ -z ip ]; then
+        echo "Not able to find IP address of AWS instance."
+        return
+    fi
+
+    # In order to run the sshfs command with the user root, we need to replace root's
+    # authorized_keys with ec2-user's authorized_keys.  The root use does not otherwise
+    # allow for mounting the file system with write permission.
+    if [ "rhel" == "$2" ]; then
+        echo ssh -t ec2-user@$ip -i ~/.ssh/aws.pem "sudo cp /root/.ssh/authorized_keys /root/.ssh/authorized_keys_orig"
+        ssh -t ec2-user@$ip -i ~/.ssh/aws.pem "sudo cp /root/.ssh/authorized_keys /root/.ssh/authorized_keys_orig"
+        echo ssh -t ec2-user@$ip -i ~/.ssh/aws.pem "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys"
+        ssh -t ec2-user@$ip -i ~/.ssh/aws.pem "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys"
+    fi
+
+    mkdir -pv ~/mnt/$1
+    echo sshfs root@$ip:/ ~/mnt/$1 -o IdentityFile=~/.ssh/aws.pem
+    sshfs root@$ip:/ ~/mnt/$1 -o IdentityFile=~/.ssh/aws.pem
+
+    popd
+}
+
+function rmchefec2()
+{
+    if [ -z "$1" ]; then
+        echo Usage: you must pass the node name.
+        return
+    fi
+
+    pushd `git rev-parse --show-toplevel`
+
+    echo ./run python deploy/chef/scripts/ec2_server.py -d $1
+    ./run python deploy/chef/scripts/ec2_server.py -d $1
+
+    echo sudo umount ~/mnt/$1
+    sudo umount ~/mnt/$1
+
+    echo rmdir ~/mnt/$1
+    rmdir ~/mnt/$1
+
+    popd
+}
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
