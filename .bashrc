@@ -141,7 +141,7 @@ if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
 fi
 
-function mkchefec2()
+function mkec2()
 {
     if [ -z "$1" ]; then
         echo 'Usage: you must pass the node name, mkchefec2 node_name [size]'
@@ -159,8 +159,8 @@ function mkchefec2()
     target_os="ami-eb6b0182" # centos 6 with updates, us east
     user="root"
 
-    echo ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment _default --recipe base $ebs_size -a $1
-    ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment _default --recipe base $ebs_size -a $1
+    echo ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
+    ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
 
     local ip=`knife node show $1 | grep IP | tr -s ' ' | cut -d" " -f 2`
     if [ -z ip ]; then
@@ -185,7 +185,7 @@ function mkchefec2()
     popd
 }
 
-function rmchefec2()
+function rmec2()
 {
     if [ -z "$1" ]; then
         echo Usage: you must pass the node name.
