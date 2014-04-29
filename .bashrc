@@ -127,14 +127,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+  
 # Solve missing crti.o issue
 LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LIBRARY_PATH 
 export LIBRARY_PATH
 
 # Java location for debesys builds
-export JAVA_HOME=/usr/lib/jvm/default-java
-
+export JAVA_HOME=/usr/java/jdk1.7.0_17
 export EDITOR=vim
 
 if [ -f ~/.amazon_keys.sh ]; then
@@ -206,4 +208,116 @@ function rmec2()
     popd
 }
 
+function m_()
+{
+    # The $@ variable contains all the arguments.  The parenthesis run in a subshell
+    # which keeps the effect of set -x (echoing commands) from being permanent.
+    local cpus=$(expr `nproc` - 1)
+    ( set -x; time make -Rr -j $cpus -C `git rev-parse --show-toplevel` "$@" )
+    if [ $? == 0 ]; then
+        echo COMPILE SUCCESSFUL!
+    else
+        echo COMPILE FAILED!
+    fi
+}
+alias m=m_
+
+function git-sync_()
+{
+    usage="git-sync branch"
+    if [ -z "$1" ]; then
+        echo $usage
+        return
+    fi
+
+    echo "pushd `git rev-parse --show-toplevel`";
+    pushd `git rev-parse --show-toplevel`;
+    if [ $? != 0 ]; then
+        echo "Aborting."
+        return
+    fi
+    echo "git remote prune origin";
+    git remote prune origin;
+    if [ $? != 0 ]; then
+        echo "Aborting."
+        return
+    fi
+    echo "git checkout $1";
+    git checkout "$1";
+    if [ $? != 0 ]; then
+        echo "Aborting."
+        return
+    fi
+    echo "git pull";
+    git pull;
+    if [ $? != 0 ]; then
+        echo "Aborting."
+        return
+    fi
+    echo "git submodule init";
+    git submodule init;
+    if [ $? != 0 ]; then
+        echo "Aborting."
+        return
+    fi
+    echo "git submodule update";
+    git submodule update;
+    if [ $? != 0 ]; then
+        echo "Aborting."
+        return
+    fi
+    echo "popd";
+    popd;
+}
+
+# Author.: Ole J
+# Date...: 23.03.2008
+# License: Whatever
+
+# Wraps a completion function
+# make-completion-wrapper <actual completion function> <name of new func.>
+#                         <command name> <list supplied arguments>
+# eg.
+#   alias agi='apt-get install'
+#   make-completion-wrapper _apt_get _apt_get_install apt-get install
+# defines a function called _apt_get_install (that's $2) that will complete
+# the 'agi' alias. (complete -F _apt_get_install agi)
+#
+function make-completion-wrapper () {
+    local function_name="$2"
+    local arg_count=$(($#-3))
+    local comp_function_name="$1"
+    shift 2
+    local function="
+function $function_name {
+    ((COMP_CWORD+=$arg_count))
+    COMP_WORDS=( "$@" \${COMP_WORDS[@]:1} )
+    "$comp_function_name"
+    return 0
+}"
+    eval "$function"
+}
+
+alias gits='git-sync_'
+make-completion-wrapper _git _git_checkout_mine git checkout
+complete -o bashdefault -o default -o nospace -F _git_checkout_mine gits
+complete -o bashdefault -o default -o nospace -F _git_checkout_mine rmbr
+make-completion-wrapper _git _git_mine git
+alias g='git'
+complete -o bashdefault -o default -o nospace -F _git_mine g
+
+
+alias pull_req='echo "@blesleytt
+@tom-weiss-github
+@elmedinam
+@jkess
+@joanne-wilson
+@srubik
+@TIMSTACY
+@jfrumkin
+@jerdmann
+" | xclip -selection clipboard'
+
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:/usr/local/src/git-1.9.2
