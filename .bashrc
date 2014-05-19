@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -268,6 +268,77 @@ function git-sync_()
     fi
     echo "popd";
     popd;
+}
+
+function aws_keys()
+{
+    usage="aws_keys key_file"
+    if [ -z "$1" ]; then
+        echo $usage
+        return
+    fi
+
+    if [ -f "$1" ]; then
+        echo Loading AWS keys from "$1".
+        source $1
+    else
+        echo Error: Didn\'t find "$1", couldn\'t load AWS keys.
+    fi
+}
+
+function rename_terminal_title()
+{
+    if [ -z "$1" ]; then
+        echo Usage: You must pass the new title.
+        return
+    fi
+
+    local title="terminal | $1"
+    echo -en "\033]0;$title\007"
+    export CURRENT_TERMINAL_TITLE="$1"
+}
+alias rw=rename_terminal_title
+rename_terminal_title ":-)"
+
+function external()
+{
+    usage="external on|off"
+    if [ -z "$1" ]; then
+        echo $usage
+        return
+    fi
+
+    if [ "on" == "$1" ]; then
+        export PRE_EXTERNAL_PS1=$PS1
+        export PRE_EXTERNAL_TERMINAL_TITLE=$CURRENT_TERMINAL_TITLE
+        export PS1="\[\033[0;31m\]EXTERNAL DEBESYS\[\033[0;0m\] \h\[\033[1;30m\]\$ \[\033[0;0m\]\w \n>"
+        rename_terminal_title "EXTERNAL DEBESYS"
+        alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife -C ~/.chef/knife.external.rb'
+        alias ttknife
+        echo
+        echo '######## ##     ## ######## ######## ########  ##    ##    ###    ##'
+        echo '##        ##   ##     ##    ##       ##     ## ###   ##   ## ##   ##'
+        echo '##         ## ##      ##    ##       ##     ## ####  ##  ##   ##  ##'
+        echo '######      ###       ##    ######   ########  ## ## ## ##     ## ##'
+        echo '##         ## ##      ##    ##       ##   ##   ##  #### ######### ##'
+        echo '##        ##   ##     ##    ##       ##    ##  ##   ### ##     ## ##'
+        echo '######## ##     ##    ##    ######## ##     ## ##    ## ##     ## ########'
+        echo
+        # http://patorjk.com/software/taag/#p=display&h=1&v=1&f=Banner3&t=EXTERNAL
+        # aws_keys ~/amazon_keys.sh
+    elif [ "off" == "$1" ]; then
+        if [ ! -z "$PRE_EXTERNAL_PS1" ]; then
+            export PS1=$PRE_EXTERNAL_PS1
+        fi
+        if [ ! -z "PRE_EXTERNAL_TERMINAL_TITLE" ]; then
+            rename_terminal_title "$PRE_EXTERNAL_TERMINAL_TITLE"
+        fi
+        alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
+        alias ttknife
+        aws_keys ~/.amazon_keys.sh
+    else
+        echo $usage
+    fi
 }
 
 # Author.: Ole J
