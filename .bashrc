@@ -286,6 +286,20 @@ function aws_keys()
     fi
 }
 
+function remote_to_server()
+{
+    if [ -z "$1" ]; then
+        echo Usage: You must pass in a IP
+        return
+    fi
+    
+    s="ssh -i /home/brian/.chef/PILAB-US-EAST-1.pem root@$1"
+    echo "$s"
+    eval "$s"
+}
+
+alias rs=remote_to_server
+
 function rename_terminal_title()
 {
     if [ -z "$1" ]; then

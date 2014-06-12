@@ -12,6 +12,7 @@ set visualbell
 set number
 colo delek
 set tabstop=4
+set shiftwidth=4
 execute pathogen#infect()
 filetype plugin on
 let g:pydiction_location = '/home/brian/.vim/bundle/pydiction/complete-dict'
