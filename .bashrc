@@ -97,8 +97,6 @@ alias pycharm='/home/brian/debesys/run ~/pycharm-3.1.1/bin/pycharm.sh'
 
 alias glog='git log --graph --decorate --color --full-history'
 
-alias orderserver='ssh root@10.202.0.30'
-
 alias dev='cd /home/brian/debesys'
 
 alias show='nautilus ./'
@@ -293,9 +291,10 @@ function remote_to_server()
         return
     fi
     
-    s="ssh -i /home/brian/.chef/PILAB-US-EAST-1.pem root@$1"
-    echo "$s"
-    eval "$s"
+    eval ssh -i /home/brian/.chef/PILAB-US-EAST-1.pem root@$1
+    #expect "*password:*"
+    #send "Tt12345678\n";
+    #interact
 }
 
 alias rs=remote_to_server
@@ -403,6 +402,13 @@ alias pull_req='echo "@blesleytt
 @jerdmann
 " | xclip -selection clipboard'
 
+alias findr='find ./ -name'
+
+function gh()
+{
+    local pattern=$1
+    grep -r "$1" ./ 
+}
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/src/git-1.9.2
