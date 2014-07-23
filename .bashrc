@@ -11,7 +11,7 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
+    
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -98,6 +98,7 @@ alias pycharm='/home/brian/debesys/run ~/pycharm-3.1.1/bin/pycharm.sh'
 alias glog='git log --graph --decorate --color --full-history'
 
 alias dev='cd /home/brian/debesys'
+alias devc='cd /home/brian/debesys/deploy/chef/cookbooks'
 
 alias show='nautilus ./'
 
@@ -136,6 +137,8 @@ export LIBRARY_PATH
 # Java location for debesys builds
 export JAVA_HOME=/usr/java/jdk1.7.0_17
 export EDITOR=vim
+
+export HISTTIMEFORMAT='%F %T  '
 
 if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
@@ -407,7 +410,7 @@ alias findr='find ./ -name'
 function gh()
 {
     local pattern=$1
-    grep -r "$1" ./ 
+    grep -r "$1" ./ | more
 }
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
