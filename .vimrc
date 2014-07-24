@@ -4,8 +4,6 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -31,41 +29,45 @@ Plugin 'flazz/vim-colorschemes'
 " Better json
 Plugin 'elzr/vim-json'
 
+" More python stuff
+Plugin 'vim-scripts/pep8'
+
+" for ruby
+Plugin 'vim-ruby/vim-ruby'
+
+" better identify indents so they can be highlited
+Plugin 'nathanaelkane/vim-indent-guides'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 filetype plugin on
 
-set expandtab
-set ruler
-set nocompatible
-set autoindent
 set history=50
-set showcmd
-set incsearch
-syntax on
-set hlsearch
-set mouse=a
-set visualbell
-set number
-"colo delek
-set tabstop=4
-set shiftwidth=4
-set laststatus=2 " Show airline all the time
-let mapleader = "," "Change leader key to ,
+set incsearch   " Start searching as soon as you type
+syntax on       " Turn on syntax colors
+set hlsearch    " highlight the word you are searching
+set mouse=a     " Enable the use of the mouse in all modes
+set visualbell  " Flash the screen instead of making a sound
+set number      " Show the line numbers
+set tabstop=4 shiftwidth=4 expandtab " All tabs are spaces
+set autoindent  " Keeps the indent when you hit return
+set laststatus=2    " Show airline all the time
+let mapleader = "," " Change leader key to ,
+set list " Show spaces
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set backspace=indent,eol,start " Make sure backspace goes over lines
+set nowrap      " Do not word wrap
 
-" UI CHANGES
-let g:molokai_original = 1
-set cursorline
-set t_Co=256
-"hi CursorLine   cterm=NONE ctermbg=grey ctermfg=white guibg=grey guifg=white
+" ------ UI CHANGES -------
+
+color molokai   " Set the color scheme to molokai
+set t_Co=256    " Turns on xterm colors so you can set the color of the cursor line
+set cursorline  " Highlight the line the cursor is on
 hi CursorLine   cterm=NONE ctermbg=235
-" hi CursorColumn cterm=NONE ctermbg=grey ctermfg=white guibg=grey guifg=white
-highlight clear SignColumn      " SignColumn should match background
-highlight clear LineNr 
-" Set configuration options for the statusline plugin vim-airline.
+
+" ------ Plugin Changes ------
+
 " airline {
     let g:airline_theme='molokai'
     if !exists('g:airline_powerline_fonts')
@@ -111,4 +113,14 @@ highlight clear LineNr
 
 " vim-JSON {
     let g:vim_json_syntax_conceal = 0
+" }
+
+" vim-indent-guides {
+    "colorscheme default
+    "let g:indent_guides_auto_colors = 0
+    "hi IndentGuidesOdd  ctermbg=black
+    "hi IndentGuidesEven ctermbg=darkgrey
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_enable_on_vim_startup = 1
 " }
