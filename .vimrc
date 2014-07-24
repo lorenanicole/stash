@@ -29,9 +29,6 @@ Plugin 'flazz/vim-colorschemes'
 " Better json
 Plugin 'elzr/vim-json'
 
-" More python stuff
-Plugin 'vim-scripts/pep8'
-
 " for ruby
 Plugin 'vim-ruby/vim-ruby'
 
@@ -61,7 +58,7 @@ set nowrap      " Do not word wrap
 
 " ------ UI CHANGES -------
 
-color molokai   " Set the color scheme to molokai
+color carrot   " Set the color scheme to molokai
 set t_Co=256    " Turns on xterm colors so you can set the color of the cursor line
 set cursorline  " Highlight the line the cursor is on
 hi CursorLine   cterm=NONE ctermbg=235
@@ -105,7 +102,6 @@ hi CursorLine   cterm=NONE ctermbg=235
         nnoremap <silent> <leader>gr :Gread<CR>
         nnoremap <silent> <leader>gw :Gwrite<CR>
         nnoremap <silent> <leader>ge :Gedit<CR>
-        " Mnemonic _i_nteractive
         nnoremap <silent> <leader>gi :Git add -p %<CR>
         nnoremap <silent> <leader>gg :SignifyToggle<CR>
     endif
@@ -116,10 +112,6 @@ hi CursorLine   cterm=NONE ctermbg=235
 " }
 
 " vim-indent-guides {
-    "colorscheme default
-    "let g:indent_guides_auto_colors = 0
-    "hi IndentGuidesOdd  ctermbg=black
-    "hi IndentGuidesEven ctermbg=darkgrey
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
     let g:indent_guides_enable_on_vim_startup = 1
