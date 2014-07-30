@@ -162,8 +162,8 @@ function mkec2()
     target_os="ami-eb6b0182" # centos 6 with updates, us east
     user="root"
 
-    echo ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
-    ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
+    echo ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --dept DEBESYS --cost-center "DEBESYS (490)" --project chef --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
+    ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --dept DEBESYS --cost-center "DEBESYS (490)" --project chef --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
 
     local ip=`knife node show $1 | grep IP | tr -s ' ' | cut -d" " -f 2`
     if [ -z ip ]; then

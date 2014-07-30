@@ -35,6 +35,9 @@ Plugin 'vim-ruby/vim-ruby'
 " better identify indents so they can be highlited
 Plugin 'nathanaelkane/vim-indent-guides'
 
+" line up blocks of text
+Plugin 'godlygeek/tabular'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -54,11 +57,11 @@ let mapleader = "," " Change leader key to ,
 set list " Show spaces
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set backspace=indent,eol,start " Make sure backspace goes over lines
-set nowrap      " Do not word wrap
+"set nowrap      " Do not word wrap
 
 " ------ UI CHANGES -------
 
-color carrot   " Set the color scheme to molokai
+color molokai   " Set the color scheme to molokai
 set t_Co=256    " Turns on xterm colors so you can set the color of the cursor line
 set cursorline  " Highlight the line the cursor is on
 hi CursorLine   cterm=NONE ctermbg=235
@@ -72,6 +75,7 @@ hi CursorLine   cterm=NONE ctermbg=235
         let g:airline_left_sep='›'  " Slightly fancier than '>'
         let g:airline_right_sep='‹' " Slightly fancier than '<'
     endif
+    let g:airline_section_c = '%F'
 "}
 
 " NerdTree {
@@ -115,4 +119,23 @@ hi CursorLine   cterm=NONE ctermbg=235
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
     let g:indent_guides_enable_on_vim_startup = 1
+" }
+
+" Tabularize {
+    if isdirectory(expand("~/.vim/bundle/tabular"))
+        nmap <Leader>a& :Tabularize /&<CR>
+        vmap <Leader>a& :Tabularize /&<CR>
+        nmap <Leader>a= :Tabularize /=<CR>
+        vmap <Leader>a= :Tabularize /=<CR>
+        nmap <Leader>a: :Tabularize /:<CR>
+        vmap <Leader>a: :Tabularize /:<CR>
+        nmap <Leader>a:: :Tabularize /:\zs<CR>
+        vmap <Leader>a:: :Tabularize /:\zs<CR>
+        nmap <Leader>a, :Tabularize /,<CR>
+        vmap <Leader>a, :Tabularize /,<CR>
+        nmap <Leader>a,, :Tabularize /,\zs<CR>
+        vmap <Leader>a,, :Tabularize /,\zs<CR>
+        nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+        vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+    endif
 " }
