@@ -57,6 +57,7 @@ let mapleader = "," " Change leader key to ,
 set list " Show spaces
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set backspace=indent,eol,start " Make sure backspace goes over lines
+set encoding=utf-8
 "set nowrap      " Do not word wrap
 
 " ------ UI CHANGES -------
