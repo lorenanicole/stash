@@ -139,7 +139,8 @@ export JAVA_HOME=/usr/java/jdk1.7.0_17
 export EDITOR=vim
 
 export HISTTIMEFORMAT='%F %T  '
-
+export LC_ALL=en_US.utf-8
+export LANG="$LC_ALL"
 if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
 fi
@@ -162,8 +163,8 @@ function mkec2()
     target_os="ami-eb6b0182" # centos 6 with updates, us east
     user="root"
 
-    echo ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --dept DEBESYS --cost-center "DEBESYS (490)" --project chef --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
-    ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --dept DEBESYS --cost-center "DEBESYS (490)" --project chef --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
+    echo ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --cost-center "Engineering-490" --project chef --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
+    ./run python deploy/chef/scripts/ec2_server.py --size m1.medium --ami $target_os --manager "Brian Cordonnier" --cost-center "Engineering-490" --project chef --user $user --environment int-dev-cert --recipe base $ebs_size -a $1
 
     local ip=`knife node show $1 | grep IP | tr -s ' ' | cut -d" " -f 2`
     if [ -z ip ]; then
