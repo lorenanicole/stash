@@ -106,6 +106,8 @@ alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-topleve
 
 alias cl='python /usr/local/bin/clear.py'
 
+alias s3='aws s3 ls s3://deploy-debesys'
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
