@@ -38,6 +38,9 @@ Plugin 'nathanaelkane/vim-indent-guides'
 " line up blocks of text
 Plugin 'godlygeek/tabular'
 
+" tab complete
+Plugin 'ervandew/supertab'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -76,7 +79,6 @@ hi CursorLine   cterm=NONE ctermbg=235
         let g:airline_left_sep='›'  " Slightly fancier than '>'
         let g:airline_right_sep='‹' " Slightly fancier than '<'
     endif
-    let g:airline_section_c = '%F'
 "}
 
 " NerdTree {
