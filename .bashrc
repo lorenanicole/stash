@@ -106,7 +106,9 @@ alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-topleve
 
 alias cl='python /usr/local/bin/clear.py'
 
-alias s3='aws s3 ls s3://deploy-debesys'
+alias S3='aws s3 ls s3://deploy-debesys'
+
+alias bdf='git difftool --dir-diff $(git merge-base develop HEAD) HEAD'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -418,3 +420,4 @@ function gh()
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/src/git-1.9.2
+PATH=$PATH:$JAVA_HOME/bin
