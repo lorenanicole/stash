@@ -41,6 +41,9 @@ Plugin 'godlygeek/tabular'
 " tab complete
 Plugin 'ervandew/supertab'
 
+"python debuger
+"Plugin 'jaredly/vim-debug' install this through pip
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -62,6 +65,9 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set backspace=indent,eol,start " Make sure backspace goes over lines
 set encoding=utf-8
 "set nowrap      " Do not word wrap
+
+" ------ SHORTCUTS -------
+autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 
 " ------ UI CHANGES -------
 
