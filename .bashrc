@@ -418,6 +418,17 @@ function gh()
     grep -r "$1" ./ | more
 }
 
+function chef_search()
+{
+    if [ -z "$2" ]; then
+        ttknife search "chef_environment:$1"
+    else
+        echo ttknife search "chef_environment:$1 run_list:*$2*"
+        ttknife search "chef_environment:$1 AND run_list:*$2*"
+
+    fi
+}
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/src/git-1.9.2
 PATH=$PATH:$JAVA_HOME/bin
