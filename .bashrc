@@ -423,9 +423,8 @@ function chef_search()
     if [ -z "$2" ]; then
         ttknife search "chef_environment:$1"
     else
-        echo ttknife search "chef_environment:$1 run_list:*$2*"
-        ttknife search "chef_environment:$1 AND run_list:*$2*"
-
+        echo ttknife -V search "chef_environment:$1 AND run_list:recipe\\[$2\\]"
+        ttknife -V search "chef_environment:$1 AND run_list:recipe\\[$2\\]"
     fi
 }
 
