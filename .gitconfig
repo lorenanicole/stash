@@ -1,28 +1,28 @@
 [user]
-    name = Brian Cordonnier
-    email = brian.cordonnier@tradingtechnologies.com
+    name = Brian Cordonnier  #This is the name that will show up in your commits
+    email = brian.cordonnier@tradingtechnologies.com  #Show who to blame
 [credential]
-    helper = cache --timeout=86400
+    helper = cache --timeout=86400 #If you type in a password for git (i.e. not using ssh) store the password for this many seconds
 [core]
-    editor = vim
+    editor = vim #Default editor
 [color]
-    ui = true
+    ui = true #Turn on colors
 [push]
-    default = simple
-[alias]
+    default = simple #Only push the current branch I am on
+[alias]  #These are all my git aliases. For example to difftool I can just call 'git ds'
     co = checkout
     br = branch
     ci = commit
     st = status
-    ds = difftool --dir-diff --staged
-    df = difftool --dir-diff
-    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' 
-    lga = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    ds = difftool --dir-diff --staged #Pull up all the currently staged files in meld at once
+    df = difftool --dir-diff #Pull up all the currently modified, non-staged files in meld at once
+    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'  #A much prettier git log for my current branch
+    lga = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all #A much prettier git log for all branches
 [diff]
-    tool = meld
+    tool = meld #Do all the difs in meld http://meldmerge.org/
 [difftool]
-    prompt = false
+    prompt = false #Do not prompt to use meld
 [mergetool]
-    prompt = false
+    prompt = false #Do not prompt to use meld
 [merge]
-    tool = meld
+    tool = meld #Make the default merge tool meld
