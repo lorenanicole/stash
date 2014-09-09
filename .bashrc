@@ -16,8 +16,10 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=10000
+shopt -s histappend
+export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -399,8 +401,7 @@ alias g='git'
 complete -o bashdefault -o default -o nospace -F _git_mine g
 
 
-alias pull_req='echo "@blesleytt
-@tom-weiss-github
+alias pull_req='echo "@tom-weiss-github
 @elmedinam
 @jkess
 @joanne-wilson
