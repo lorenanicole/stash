@@ -11,15 +11,13 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-    
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=10000
 HISTFILESIZE=10000
-shopt -s histappend
-export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -429,6 +427,14 @@ function chef_search()
     fi
 }
 
+function proc_restart()
+{
+    echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
+    knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
+
+    echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
+    knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
+}
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-PATH=$PATH:/usr/local/src/git-1.9.2
 PATH=$PATH:$JAVA_HOME/bin
