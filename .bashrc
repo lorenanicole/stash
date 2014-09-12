@@ -427,13 +427,22 @@ function chef_search()
     fi
 }
 
-function proc_restart()
+function proc_external_restart()
 {
     echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
     knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
 
     echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
     knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.external.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
+}
+
+function proc_internal_restart()
+{
+    echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
+    knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
+
+    echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
+    knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
 }
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
