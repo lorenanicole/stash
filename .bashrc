@@ -56,8 +56,11 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+source ~/.git-prompt.sh
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1="\[\033[01;33m\]\$(__git_ps1)\[\033[01;32m\]\w\[\033[00m\]->"
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -441,8 +444,8 @@ function proc_internal_restart()
     echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
     knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root --ssh-password Tt12345678 --attribute ipaddress
 
-    echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
-    knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root -i ~/.ssh/ttnet_us_east_1.pem --attribute ipaddress
+    echo knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root -i ~/.ssh/PILAB-US-EAST-1.pem --attribute ipaddress
+    knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root -i ~/.ssh/PILAB-US-EAST-1.pem --attribute ipaddress
 }
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
