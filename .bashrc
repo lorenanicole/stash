@@ -137,7 +137,10 @@ fi
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
-  
+
+if [ -f /usr/local/git/contrib/completion/git-completion.bash ]; then
+  . /usr/local/git/contrib/completion/git-completion.bash
+fi
 # Solve missing crti.o issue
 LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LIBRARY_PATH 
 export LIBRARY_PATH
