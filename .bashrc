@@ -60,7 +60,6 @@ source ~/.git-prompt.sh
 
 if [ "$color_prompt" = yes ]; then
     PS1="\[\033[01;33m\]\$(__git_ps1)\[\033[01;32m\]\w\[\033[00m\]->"
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -87,30 +86,32 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+
+#Linux VS OSX commands
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    alias ll='ls -alFh'
+    alias la='ls -Ah'
+    alias l='ls -CF'
+    alias dev='cd /home/brian/debesys'
+    alias devc='cd /home/brian/debesys/deploy/chef/cookbooks'
+    alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ll='ls -alhG'
+    alias la='ls -AhG'
+    alias ls='ls -GF'
+    alias dev='cd /Users/bcordonnier/repos/debesys/'
+    alias devc='cd /Users/bcordonnier/repos/debesys/deploy/chef/cookbooks'
+    alias ttknife='`git rev-parse --show-toplevel`/ttknife'
+fi
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 alias pycharm='/home/brian/debesys/run ~/pycharm-3.1.1/bin/pycharm.sh'
-
 alias glog='git log --graph --decorate --color --full-history'
-
-alias dev='cd /home/brian/debesys'
-alias devc='cd /home/brian/debesys/deploy/chef/cookbooks'
-
 alias show='nautilus ./'
-
-alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
-
 alias cl='python /usr/local/bin/clear.py'
-
 alias S3='aws s3 ls s3://deploy-debesys'
-
 alias bdf='git difftool --dir-diff $(git merge-base develop HEAD) HEAD'
 
 # Alias definitions.
@@ -317,12 +318,11 @@ function rename_terminal_title()
         return
     fi
 
-    local title="terminal | $1"
+    local title="$1"
     echo -en "\033]0;$title\007"
     export CURRENT_TERMINAL_TITLE="$1"
 }
 alias rw=rename_terminal_title
-rename_terminal_title ":-)"
 
 function external()
 {
@@ -335,9 +335,13 @@ function external()
     if [ "on" == "$1" ]; then
         export PRE_EXTERNAL_PS1=$PS1
         export PRE_EXTERNAL_TERMINAL_TITLE=$CURRENT_TERMINAL_TITLE
-        export PS1="\[\033[0;31m\]EXTERNAL DEBESYS\[\033[0;0m\] \h\[\033[1;30m\]\$ \[\033[0;0m\]\w \n>"
+        export PS1="\[\033[0;31m\]EXTERNAL DEBESYS\[\033[0;0m\] \$(__git_ps1)\[\033[1;30m\]\$ \[\033[0;0m\]\w \n>"
         rename_terminal_title "EXTERNAL DEBESYS"
-        alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife -C ~/.chef/knife.external.rb'
+        if [[ "$OSTYPE" == "linux-gnu" ]]; then
+            alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife -C ~/.chef/knife.external.rb'
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            alias ttknife='`git rev-parse --show-toplevel`/ttknife -C ~/.chef/knife.external.rb'
+        fi
         alias ttknife
         echo
         echo '######## ##     ## ######## ######## ########  ##    ##    ###    ##'
@@ -357,7 +361,11 @@ function external()
         if [ ! -z "PRE_EXTERNAL_TERMINAL_TITLE" ]; then
             rename_terminal_title "$PRE_EXTERNAL_TERMINAL_TITLE"
         fi
-        alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
+        if [[ "$OSTYPE" == "linux-gnu" ]]; then
+            alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            alias ttknife='`git rev-parse --show-toplevel`/ttknife'
+        fi
         alias ttknife
         aws_keys ~/.amazon_keys.sh
     else
