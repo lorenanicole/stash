@@ -95,6 +95,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     alias dev='cd /home/brian/debesys'
     alias devc='cd /home/brian/debesys/deploy/chef/cookbooks'
     alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
+    alias pull_req='echo "@tom-weiss-github @elmedinam @jkess @joanne-wilson @srubik @TIMSTACY @jfrumkin @jerdmann" | xclip -selection clipboard'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias ll='ls -alhG'
     alias la='ls -AhG'
@@ -102,6 +103,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias dev='cd /Users/bcordonnier/repos/debesys/'
     alias devc='cd /Users/bcordonnier/repos/debesys/deploy/chef/cookbooks'
     alias ttknife='`git rev-parse --show-toplevel`/ttknife'
+    alias pull_req='echo "@tom-weiss-github @elmedinam @jkess @joanne-wilson @srubik @TIMSTACY @jfrumkin @jerdmann" | pbcopy'
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -413,15 +415,7 @@ alias g='git'
 complete -o bashdefault -o default -o nospace -F _git_mine g
 
 
-alias pull_req='echo "@tom-weiss-github
-@elmedinam
-@jkess
-@joanne-wilson
-@srubik
-@TIMSTACY
-@jfrumkin
-@jerdmann
-" | xclip -selection clipboard'
+
 
 alias findr='find ./ -name'
 
