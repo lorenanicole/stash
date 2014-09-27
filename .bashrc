@@ -47,12 +47,12 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
@@ -104,6 +104,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias devc='cd /Users/bcordonnier/repos/debesys/deploy/chef/cookbooks'
     alias ttknife='`git rev-parse --show-toplevel`/ttknife'
     alias pull_req='echo "@tom-weiss-github @elmedinam @jkess @joanne-wilson @srubik @TIMSTACY @jfrumkin @jerdmann" | pbcopy'
+    alias vim="/Applications/mvim -v"
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -154,6 +155,8 @@ export EDITOR=vim
 export HISTTIMEFORMAT='%F %T  '
 export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
+export JENKINS_USER=brian.cordonnier@tradingtechnologies.com
+export JENKINS_TOKEN=dca361d9cfc950d1e310dade46bd9675
 if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
 fi
@@ -308,10 +311,11 @@ function remote_to_server()
         return
     fi
     
-    eval ssh -i /home/brian/.chef/PILAB-US-EAST-1.pem root@$1
-    #expect "*password:*"
-    #send "Tt12345678\n";
-    #interact
+    if [[ "$OSTYPE" == "linux-gnu" ]]; then
+        eval ssh -i /home/brian/.chef/PILAB-US-EAST-1.pem root@$1
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        eval ssh -i /Users/bcordonnier/.chef/PILAB-US-EAST-1.pem root@$1
+    fi
 }
 
 alias rs=remote_to_server
