@@ -93,7 +93,6 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     alias la='ls -Ah'
     alias l='ls -CF'
     alias dev='cd /home/brian/debesys'
-    alias devc='cd /home/brian/debesys/deploy/chef/cookbooks'
     alias ttknife='`git rev-parse --show-toplevel`/run `git rev-parse --show-toplevel`/ttknife'
     alias pull_req='echo "@tom-weiss-github @elmedinam @jkess @joanne-wilson @srubik @TIMSTACY @jfrumkin @jerdmann" | xclip -selection clipboard'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -101,11 +100,13 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias la='ls -AhG'
     alias ls='ls -GF'
     alias dev='cd /Users/bcordonnier/repos/debesys/'
-    alias devc='cd /Users/bcordonnier/repos/debesys/deploy/chef/cookbooks'
     alias ttknife='`git rev-parse --show-toplevel`/ttknife'
     alias pull_req='echo "@tom-weiss-github @elmedinam @jkess @joanne-wilson @srubik @TIMSTACY @jfrumkin @jerdmann" | pbcopy'
     alias vim="/Applications/mvim -v"
 fi
+
+alias c='cd `git rev-parse --show-toplevel`/deploy/chef/cookbooks'
+alias h='cd `git rev-parse --show-toplevel`'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
