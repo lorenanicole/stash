@@ -158,6 +158,9 @@ export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
 export JENKINS_USER=brian.cordonnier@tradingtechnologies.com
 export JENKINS_TOKEN=dca361d9cfc950d1e310dade46bd9675
+export DEPLOYMENT_SCRIPTS_REPO_ROOT=/Users/bcordonnier/repos/build_scripts/debesys
+export INTAD_USER=bcordonnier
+export VCD_ORG=Dev_General
 if [ -f ~/.amazon_keys.sh ]; then
     source ~/.amazon_keys.sh
 fi
