@@ -106,6 +106,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 alias c='cd `git rev-parse --show-toplevel`/deploy/chef/cookbooks'
+alias s='cd `git rev-parse --show-toplevel`/deploy/chef/scripts'
 alias h='cd `git rev-parse --show-toplevel`'
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -323,6 +324,17 @@ function remote_to_server()
 }
 
 alias rs=remote_to_server
+
+function normal_ssh()
+{
+    if [ -z "$1" ]; then
+        echo Usage: You must pass in a IP
+        return
+    fi
+    eval ssh bcordonnier@$1
+}
+
+alias ns=normal_ssh
 
 function rename_terminal_title()
 {
