@@ -107,6 +107,8 @@ fi
 
 alias c='cd `git rev-parse --show-toplevel`/deploy/chef/cookbooks'
 alias s='cd `git rev-parse --show-toplevel`/deploy/chef/scripts'
+alias e='cd `git rev-parse --show-toplevel`/deploy/chef/environments'
+alias b='cd `git rev-parse --show-toplevel`/deploy/chef/data_bags'
 alias h='cd `git rev-parse --show-toplevel`'
 
 # Add an "alert" alias for long running commands.  Use like so:
