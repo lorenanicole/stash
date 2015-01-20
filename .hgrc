@@ -1,0 +1,67 @@
+[ui]
+# Name data to appear in commits
+username = bcordonnier <brian.cordonnier@sproutsocial.com>
+ssh = ssh -C
+merge=kdiff3
+stype=compact
+
+[phases]
+publish = False
+
+[defaults]
+log = -v
+tip = -v
+qnew = -e
+
+[alias]
+lg = log -G -l15 --template "{label('custom.rev', rev)}|{label('custom.node',node|short)}|{tags} [{label('custom.date', date|age)} by {label('custom.author',author)}]\n\t {desc}\n"
+
+[hooks]
+#pre-push.runtests = python manage.py test
+#pre-commit = hg status -madn|xargs flake8 --config=./.config/pep8
+
+# Prevent "hg pull" if MQ patches are applied.
+prechangegroup.mq-no-pull = ! hg qtop > /dev/null 2>&1
+# Prevent "hg push" if MQ patches are applied.
+preoutgoing.mq-no-push = ! hg qtop > /dev/null 2>&1
+
+[extensions]
+color = 
+purge = 
+progress = 
+graphlog = 
+mq =
+transplant =
+#hgk = 
+hgext.convert = 
+hgext.churn =
+rebase = 
+hgext.extdiff =
+prompt = /Users/briancordonnier/hg/hg_prompt/prompt.py
+hgshelve = /Users/briancordonnier/hg/hg_shelve/hg_shelve.py
+collapse = /Users/briancordonnier/hg/hg_collapse/collapse.py
+histedit =
+
+[color]
+custom.rev = red
+custom.node = yellow
+custom.date = blue
+custom.author = bold
+
+[extdiff]
+cmd.kdiff3 =
+[merge-tools]
+# Typical Settings
+kdiff3.args = --auto $base $local $other -o $output
+# Rebase from hell settings
+# kdiff3.premerge = false
+# kdiff3.args = $base $local $other -o $output
+
+
+#Lint
+[hooks]
+#pre-commit.lint = splinter
+#pre-push.lint = splinter
+#pre-qfinish.lint = splinter
+#pre-qrefresh.lint = splinter
+
