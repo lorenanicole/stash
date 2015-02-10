@@ -1,5 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# ~/.bashrc: executed by bash(1) for non-login shells.  # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 # If not running interactively, don't do anything
@@ -102,14 +101,15 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias dev='cd /Users/bcordonnier/repos/debesys/'
     alias ttknife='`git rev-parse --show-toplevel`/ttknife'
     alias pull_req='echo "@tom-weiss-github @elmedinam @jkess @joanne-wilson @srubik @TIMSTACY @jfrumkin @jerdmann" | pbcopy'
-    alias vim="/Applications/mvim -v"
 fi
 
-alias c='cd `git rev-parse --show-toplevel`/deploy/chef/cookbooks'
-alias s='cd `git rev-parse --show-toplevel`/deploy/chef/scripts'
-alias e='cd `git rev-parse --show-toplevel`/deploy/chef/environments'
-alias b='cd `git rev-parse --show-toplevel`/deploy/chef/data_bags'
-alias h='cd `git rev-parse --show-toplevel`'
+#alias c='cd `git rev-parse --show-toplevel`/deploy/chef/cookbooks'
+#alias s='cd `git rev-parse --show-toplevel`/deploy/chef/scripts'
+#alias e='cd `git rev-parse --show-toplevel`/deploy/chef/environments'
+#alias b='cd `git rev-parse --show-toplevel`/deploy/chef/data_bags'
+alias h='cd ~/repos/'
+alias t='cd /Users/briancordonnier/repos/tireswing'
+alias dev='source /Users/briancordonnier/repos/dev/bin/activate'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -120,6 +120,11 @@ alias show='nautilus ./'
 alias cl='python /usr/local/bin/clear.py'
 alias S3='aws s3 ls s3://deploy-debesys'
 alias bdf='git difftool --dir-diff $(git merge-base develop HEAD) HEAD'
+alias log01='ssh brianc@syslog01'
+alias log02='ssh brianc@syslog02'
+alias sandbox='ssh brianc@dev-api01'
+alias support_endpoint='ssh brianc@support-dash01'
+alias deployinator='ssh brianc@stage-api01'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -153,7 +158,6 @@ LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LIBRARY_PATH
 export LIBRARY_PATH
 
 # Java location for debesys builds
-export JAVA_HOME=/usr/java/jdk1.7.0_17
 export EDITOR=vim
 
 export HISTTIMEFORMAT='%F %T  '
@@ -476,4 +480,4 @@ function proc_internal_restart()
 }
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-PATH=$PATH:$JAVA_HOME/bin
+PATH=/usr/local/bin:$PATH

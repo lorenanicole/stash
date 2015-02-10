@@ -14,7 +14,7 @@ tip = -v
 qnew = -e
 
 [alias]
-lg = log -G -l15 --template "{label('custom.rev', rev)}|{label('custom.node',node|short)}|{tags} [{label('custom.date', date|age)} by {label('custom.author',author)}]\n\t {desc}\n"
+lg = log -G -l20 --template "{label('custom.rev', rev)}|{label('custom.node',node|short)}|{label('custom.branches',branches)}|{label('custom.branches',tags)} [{label('custom.date', date|age)} by {label('custom.author',author)}]\n\t {desc}\n"
 
 [hooks]
 #pre-push.runtests = python manage.py test
@@ -41,19 +41,29 @@ prompt = /Users/briancordonnier/hg/hg_prompt/prompt.py
 hgshelve = /Users/briancordonnier/hg/hg_shelve/hg_shelve.py
 collapse = /Users/briancordonnier/hg/hg_collapse/collapse.py
 histedit =
+extdiff =
 
 [color]
 custom.rev = red
 custom.node = yellow
 custom.date = blue
 custom.author = bold
+custom.branches = green
 
 [extdiff]
 cmd.meld = 
+cmd.arxdiff = /Applications/Araxis Merge.app/Contents/Utilities/compare
+opts.arxdiff = -wait -title1:$plabel1\ $parent -title2:$clabel\ $child -2 $parent $child
 
 [merge-tools]
 # Typical Settings
 meld.args = $local $base $other $output
+araxismergetool.premerge = False
+araxismergetool.args = $other $base $local $output
+araxismergetool.executable = /Applications/Araxis Merge.app/Contents/Utilities/araxishgmerge
+araxismergetool.checkconflict = True
+araxismergetool.binary = True
+araxismergetool.gui =  True
 
 #Lint
 [hooks]
