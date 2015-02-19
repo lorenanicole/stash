@@ -479,5 +479,21 @@ function proc_internal_restart()
     knife ssh "chef_environment:$1" "/etc/debesys/services/action.sh $2" --config /home/brian/.chef/knife.rb --ssh-user root -i ~/.ssh/PILAB-US-EAST-1.pem --attribute ipaddress
 }
 
+function biturl()
+{
+    local val=$(hg path default | cut -d \/ -f 5)
+    /usr/bin/open -a "/Applications/Google Chrome.app" "https://bitbucket.org/sproutsocial/$val"
+}
+
+function app()
+{
+    usage="app <number>"
+    if [ -z "$1" ]; then
+        echo $usage
+        return
+    fi
+    ssh brianc@app$1
+}
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=/usr/local/bin:$PATH
